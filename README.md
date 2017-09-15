@@ -1,2 +1,3 @@
 # Data-Science-Projects
-Repository of all data science projects I have worked on during and after the Galvanize DSI program
+### Repository of all data science projects I have worked on.
+### These include analyses done during the Galvanize DSI program and subsequent pet projects.
