@@ -12,4 +12,4 @@
 
 ## 2. Case Studies
 * #### Creating a Linear Regression model to predict future sales at a farm equipment auction house.  Learned the elements of CRISP-DM and exploratory data analysis (EDA).
-* #### Churn prediction for users who downloaded the app for a ride-share company.  The exercise  
+* #### Churn prediction for users who downloaded the app for a ride-share company.  The exercise involved a lot of EDA, feature engineering, and creating the proper labels for each user.  Optimized and cross-validated a gradient boosting classifier model, using the model's precision and recall as performance indicators.  

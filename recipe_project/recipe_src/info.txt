@@ -1,0 +1,29 @@
+# most current ip
+scp -i ~/.ssh/flask.pem ./food52_scraper.py ubuntu@ec2-52-34-137-126.us-west-2.compute.amazonaws.com:~
+
+ssh -i "flask.pem" ubuntu@ec2-52-34-137-126.us-west-2.compute.amazonaws.com
+
+or
+
+scp -i (pem key path) (file_path) ubuntu@ec2-52-34-137-126.us-west-2.compute.amazonaws.com:~
+
+
+To copy from instance
+
+scp -i ~/.ssh/flask.pem ubuntu@ec2-52-34-137-126.us-west-2.compute.amazonaws.com:~/SampleFile.txt ~/SampleFile2.txt
+
+To s3 bucket
+aws s3 cp my_copied_file.ext s3://my_bucket/my_folder/my_file.ext
+
+From s3 bucket
+aws s3 cp s3://my_bucket/my_folder/my_file.ext my_copied_file.ext
+
+Running a Jupyter Notebook from ec2
+
+jupyter notebook --no-browser --port=18888
+
+ssh -NfL localhost:18888:localhost:18888 <ssh-alias>
+
+Need to input token from this stdout from ec2
+
+http://localhost:18888/?token=d23ef16458d05119554bfa7af2a95efc273cee49494dc21e
