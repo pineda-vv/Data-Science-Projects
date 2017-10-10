@@ -19,19 +19,18 @@ import json
 import pickle
 
 """
-Web scraper to capture recipe list and number of votes for different recipes on
-the food52 web site.  Had to set up ec2 instance to do this.
-Don't know what to do with it yet.
+Web scraper to capture recipe list using the following search terms on
+the food52 website front page.  Except for pork, 200 pages worth of recipe
+weblinks will be scraped and each list is saved as a pickle file
 """
 
 
 def main():
-    main_ingredient = {'dessert': 'dessert.pkl'}
-        #  'pork': 'pork.pkl', 'chicken': 'chicken.pkl',
-        #  'beef': 'beef.pkl', 'vegetarian': 'vegetarian.pkl'
-
-    link = 'https://food52.com/recipes/search?page='  # https://food52.com/recipes/search?page=1&q=beef
-
+    main_ingredient = {
+         'pork': 'pork.pkl', 'chicken': 'chicken.pkl',
+         'beef': 'beef.pkl', 'vegetarian': 'vegetarian.pkl'
+        }
+    link = 'https://food52.com/recipes/search?page='
     for key in main_ingredient.keys():
         if key == 'pork':
             page_limit = 66

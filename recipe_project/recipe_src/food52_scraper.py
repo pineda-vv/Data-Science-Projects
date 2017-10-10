@@ -34,10 +34,14 @@ def main():
         link_list += recipe_links(link + str(page_num))
         print(page_num)
     d = {num: link for num, link in enumerate(link_list)}
-    # obj = pickle.dumps(d)
+    """
+    Saves list of links to a pickle file in case the next step falters.
+    Comment out if you just want to do it continuously
+    """
     with open('festured_link_list.pkl', 'wb') as f:
         pickle.dump(d, f, pickle.HIGHEST_PROTOCOL)
-    # recipe_details(link_list)
+    """ Sends pickled dictionary to next scraper """
+    recipe_details(d)
 
 
 def recipe_links(weblink):
@@ -54,14 +58,19 @@ def recipe_links(weblink):
     return list(set(recipes))
 
 
-def recipe_details(link_list):
+def recipe_details(pickled_dict):
     """
     Opens pages from link list to extract title, rating, recipes
     """
-    title_rating = {}
+    """ Uncomment if link list is saved as a pickle file """
+    # with open(filename, 'rb') as f:
+    #     link_dict = pickle.load(f)
+    link_dict = pickle.load(pickled_dict)
+    link_list = list(link_dict.values())
+    recipe_details(link_list)
     pages = 0
     for link in link_list:
-        num = np.random.randint(3)
+        num = np.random.randint(3) # built in pause
         time.sleep(num)
         options = webdriver.ChromeOptions()
         options.add_argument('window-size=800x841')
@@ -78,21 +87,21 @@ def recipe_details(link_list):
              title.text, rating.text, recipe.text, 'https://food52.com' + link
             )
         pages += 1
+        """
+        Counter to keep track of progress - in case it fails at some
+        point, can continue from that index on
+        """
         print('# recipes')
         print(pages)
-        # print (title.text)
-        # print (rating.text)
-        # print (recipe.text)
-        # driver.quit()
-        # insert stuff into mongoDb
         driver.quit()
         if pages / 50 == pages // 50:
-            time.sleep(30)
+            time.sleep(30) # pauses for 30 seconds after 50 scrapes
         else:
             continue
 
 
 def mongo_dump(title, rating, recipe, link):
+    """ Dump scraped data into mongodb as it comes in """
     client = MongoClient('mongodb://localhost:27017/')
     db = client.food52
     food52 = db.food52
