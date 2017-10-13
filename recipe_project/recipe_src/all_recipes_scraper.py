@@ -26,27 +26,36 @@ Don't know what to do with it yet.
 
 
 def main():
-    link_list = []
-    # link = 'https://food52.com/recipes?page='  # there are 195 pages
-    # link = "http://allrecipes.com/search/results/?wt=pork&sort=re&page="
-    # link = "http://allrecipes.com/search/results/?wt=chicken&sort=re&page="
-    # link = "http://allrecipes.com/search/results/?wt=beef&sort=re&page="
-    link = "http://allrecipes.com/search/results/?wt=vegetarian&sort=re&page="
-    for page_num in range(1, 101):
-        pause = np.random.randint(3)
-        time.sleep(pause)
-        link_list += recipe_links(link + str(page_num))
-        print(page_num)
-    print(len(link_list))
-    # d = {num: link for num, link in enumerate(link_list)}
     """
-    Saves list of links to a pickle file in case the next step falters.
-    Comment out if you just want to do it continuously
+    Scraper for recipe links from main page of allrecipes.com.
+    Search items are 'pork', 'chicken', 'beef', 'vegetarian'.
+    100 pages of recipes = 5000
     """
-    with open('../data/allrecipe_vegetarian_recipelist.pkl', 'wb') as f:
-        pickle.dump(link_list, f, pickle.HIGHEST_PROTOCOL)
-    """ Sends pickled dictionary to next scraper """
-    # recipe_details()
+    search_links = (
+     {'pork': 'http://allrecipes.com/search/results/?wt=pork&sort=re&page=',
+      'chicken':'http://allrecipes.com/search/results/?wt=chicken&sort=re&page=',
+      'beef': 'http://allrecipes.com/search/results/?wt=beef&sort=re&page=',
+      'vegetarian': 'http://allrecipes.com/search/results/?wt=vegetarian&sort=re&page='
+     }
+    )
+    for key, link in search_links.items():
+        link_list = []
+        for page_num in range(1, 201):
+            pause = np.random.randint(3)
+            time.sleep(pause)
+            link_list += recipe_links(link + str(page_num))
+            print(page_num)
+        print(key)
+        print(len(link_list))
+        """
+        Saves list of links to a pickle file in case the next step falters.
+        Comment out if you just want to do it continuously
+        """
+        filename_out = '../data/allrecipe_{}_recipelist.pkl'.format(key)
+        with open(filename_out, 'wb') as f:
+            pickle.dump(link_list, f, pickle.HIGHEST_PROTOCOL)
+    """ Sends pickled list to next scraper """
+        # recipe_details(filename_out)
 
 
 def recipe_links(weblink):
@@ -106,6 +115,7 @@ def recipe_details(pickled_dict):
 
 
 def mongo_dump(title, rating, recipe, link):
+    # main()  # uncomment if just starting
     """ Dump scraped data into mongodb as it comes in """
     client = MongoClient('mongodb://localhost:27017/')
     db = client.food52
@@ -118,4 +128,11 @@ def mongo_dump(title, rating, recipe, link):
         })
 
 if __name__ == '__main__':
-    main()
+    pickled_files = (
+            ['../data/allrecipe_vegetarian_recipelist.pkl',
+             '../data/allrecipe_pork_recipelist.pkl',
+             '../data/allrecipe_chicken_recipelist.pkl',
+             '../data/allrecipe_beef_recipelist.pkl']
+        )
+    for filename in pickled_files:
+        recipe_details(filename)
