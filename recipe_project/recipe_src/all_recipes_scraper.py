@@ -72,34 +72,40 @@ def recipe_links(weblink):
     return list(set(recipes))
 
 
-def recipe_details(pickled_dict):
+def recipe_details(filename):
     """
     Opens pages from link list to extract title, rating, recipes
     """
     """ Uncomment if link list is saved as a pickle file """
-    # with open(filename, 'rb') as f:
-    #     link_dict = pickle.load(f)
-    link_dict = pickle.load(pickled_dict)
-    link_list = list(link_dict.values())
-    recipe_details(link_list)
+    with open(filename, 'rb') as f:
+        link_list = pickle.load(f)
     pages = 0
-    for link in link_list:
-        num = np.random.randint(3) # built in pause
+    for link in link_list[:2]:
+        num = np.random.randint(2) # built in pause
         time.sleep(num)
         options = webdriver.ChromeOptions()
         options.add_argument('window-size=800x841')
         options.add_argument('headless')
         driver = webdriver.Chrome(chrome_options=options)
-        driver.get('https://food52.com' + link)
+        driver.get('http:allrecipes.com/recipe' + link)
         try:
-            title = driver.find_element_by_class_name('article-header-title')
-            rating = driver.find_element_by_class_name('counter')
-            recipe = driver.find_element_by_class_name('recipe-list')
-        except (NoSuchElementException, TimeoutException):
+            reviewclick = driver.find_element_by_class_name('read--reviews ng-click-active').click()
+            selector = driver.find_element_by_css_selector(
+            '#ngdialog4-aria-describedby > div > div.review-modal-header > div.tabs > div.selected'
+            ).click()
+            time.sleep(1)
+            rater = driver.find_element_by_class_name('ng-binding')
+            rating = driver.find_element_by_class_name('rating')
+            review = driver.find_element_by_class_name('ReviewText ng-binding')
+            print (rater.text, rating.text, review.text)
+        # except (NoSuchElementException, TimeoutException):
             pass
-        mongo_dump(
-             title.text, rating.text, recipe.text, 'https://food52.com' + link
-            )
+
+        # except (NoSuchElementException, TimeoutException):
+        #     pass
+        # mongo_dump(
+            #  title.text, rating.text, recipe.text, 'https://food52.com' + link
+            # )
         pages += 1
         """
         Counter to keep track of progress - in case it fails at some
