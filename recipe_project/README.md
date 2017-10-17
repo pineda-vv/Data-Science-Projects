@@ -19,7 +19,7 @@
 * &nbsp;&nbsp;&nbsp;&nbsp;![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/latex_poisson_pmf.png)
 
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/distribution.png)
-* Ratings Distribution for each category
+* Ratings Distribution for each category -- the 'vegetarian' category most likely include dessert, side dish, and vegetable main dish recipes.
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/distribution_ingredients.png)
 
 ---
