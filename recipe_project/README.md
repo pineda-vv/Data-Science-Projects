@@ -16,8 +16,7 @@
 
 * Pooled recipes
 -- The histogram for Number of "Likes" per Recipe (unique) appear to show a Poisson distribution.
-* ($\lambda = 1$) &nbsp;&nbsp;
-$pmf = \frac{\lambda^ke^{-\lambda}}{k!}$  
+* &nbsp;&nbsp;&nbsp;&nbsp;![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/latex_poisson_pmf.png) 
 
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/distribution.png)
 * Ratings Distribution for each category
