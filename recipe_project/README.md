@@ -27,7 +27,7 @@
 ---
 ## Modeling Part 1
 #### Popularity - Using Gradient Boosting Classifier
-1.  Initial modeling centered on trying to build a simple predictive model on whether a recipe (~9300 collected) is "popular" or not.  Intuitively, the recipes with a rating of either 1 or 0 could have been used as the positive ('not popular') class.  However, some of these recipes are likely newly uploaded to the site and perhaps have not been seen/rated by enough viewers.  Thus, a threshold was chosen instead and recipes with less than or equal to 10 likes were labeled as the positive class.  This modeling worked well, after engineering some features based on the text of the recipes (contained 'pork', 'chicken', 'beef') or from the NMF analysis recipe title text ('pork_dish', 'chicken_dish'....)
+1.  Initial modeling centered on trying to build a simple predictive model on whether a recipe (~9300 collected) is "popular" or not.  Intuitively, the recipes with a rating of either 1 or 0 could have been used as the positive ('not popular') class.  However, some of these recipes are likely newly uploaded to the site and perhaps have not been seen/rated by enough viewers.  Thus, a threshold was chosen instead. Recipes with less than or equal to 10 likes were labeled as the positive class (Figure 2A)  This modeling worked well, after engineering some features based on the text of the recipes.  
 
 2. Model Evaluation -- cross-validation metrics of popularity classifier.
 

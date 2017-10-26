@@ -18,8 +18,8 @@ def main():
     df['rating'] = df['rating'].apply(to_num)
     df2 = df.copy()
     df2.drop_duplicates(subset='title', inplace=True)
-    """ Save data as .csv file """
-    df2.to_csv('scraped_data.csv', index=False)
+    """ Save data as .csv file - uncomment if needed"""
+    # df2.to_csv('scraped_data.csv', index=False)
 
 
 def to_num(col):
