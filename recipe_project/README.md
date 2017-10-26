@@ -1,5 +1,5 @@
 # Recipe Project - in progress
-## Business Question
+## Question for this Exercise/Project
 * What information can I extract from the popularity of recipes posted on the food52 website?
 * Can a recipe recommender system be built with just the popularity index (number of likes) for each recipe without explicit user ratings?
 ---
@@ -33,3 +33,9 @@
 
 * #### Figure 2
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/classifier_analysis.png)
+
+## Modeling Part 2
+#### Clustering of Recipes using non-negative matrix factorization (NMF) and t-distributed stochastic neighbor embeding (t-SNE)
+1. Non-negative matrix factorization used to extract the top topics/word groups in the recipe text (ingredients) as well as the title.
+
+![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_text_tsne.png)
