@@ -24,7 +24,6 @@ the food52 web site.  Had to set up ec2 instance to do this.
 Don't know what to do with it yet.
 """
 
-
 def main():
     """
     Scraper for recipe links from main page of allrecipes.com.

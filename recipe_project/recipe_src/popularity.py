@@ -57,10 +57,8 @@ def recipe_topic_extraction(df):
     nmf_w = nmf.fit_transform(tfidf)
     nmf_h = nmf.components_
     df['topics_labels'] = nmf_w.argmax(axis=1)
-    print("\nTopics in NMF model (Frobenius norm):")
-    tfidf_feature_names = tfidf.get_feature_names()
-    topics = print_top_words(nmf, tfidf_feature_names, n_top_words=5)
-    # df['topic_words'] = df['topic_labels'].apply(lambda x: topics[x])
+
+    df['topic_words'] = df['topic_labels'].apply(lambda x: topics[x])
     dum = pd.get_dummies(df['topics_labels'])
     del dum[7]
     df2 = pd.concat([df, dum], axis=1)
