@@ -39,7 +39,7 @@
 | **2** | **8228** |
 | **1** | **2115** |
 | **0** | **13538** |
-
+![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/implicit_dist.png)
 ---
 ## Modeling Part 1
 #### Clustering of recipe ingredients
