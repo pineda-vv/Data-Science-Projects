@@ -22,7 +22,7 @@
 * B) Ratings/#Likes Distribution for each category -- the 'vegetarian' category most likely include dessert, side dish, and vegetable main dish recipes.
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/distribution_ingredients.png)
 
-* Sentiment analysis using nltk's SentimentIntensityAnalyzer returned a polarity score for each comment.  I used the compound score to derice implicit ratings using the following metric:
+* Sentiment analysis using nltk's Sentiment Intensity Analyzer returned a polarity score for each comment.  I used the compound score to derive implicit ratings using the following metric:
 
 | **Rating** | **Compound Score** |
 |:---:|:---:|
@@ -39,20 +39,19 @@
 | **2** | **8228** |
 | **1** | **2115** |
 | **0** | **13538** |
-* 
+*
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/implicit_dist.png)
 ---
 ## Modeling Part 1
 #### Clustering of recipe ingredients
-1.  Initial modeling centered on trying to build a simple predictive model on whether a recipe (~9300 collected) is "popular" or not.  Intuitively, the recipes with a rating of either 1 or 0 could have been used as the positive ('not popular') class.  However, some of these recipes are likely newly uploaded to the site and perhaps have not been seen/rated by enough viewers.  Thus, a threshold was chosen instead. Recipes with less than or equal to 10 likes were labeled as the positive class (Figure 2A)  This modeling worked well, after engineering some features based on the text of the recipes.  
+1. Non-negative Matrix Factorization and Latent Dirichlet Allocation of Recipe ingredients
+* Unsupervised learning using NMF and LDA was used to cluster the recipes based on their recipe ingredient similarity.  The best number of groups appear to be 6 with both NMF and LDA.  To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf) which were labeled
 
 2. Model Evaluation -- cross-validation metrics of popularity classifier.
 
 * #### Figure 2
-![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/classifier_analysis.png)
+
 
 ## Modeling Part 2
 #### Clustering of Recipes using non-negative matrix factorization (NMF) and t-distributed stochastic neighbor embeding (t-SNE)
 1. Non-negative matrix factorization used to extract the top topics/word groups in the recipe text (ingredients) as well as the title.
-
-![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_text_tsne.png)
