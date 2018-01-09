@@ -11,17 +11,19 @@
 * The contents of the mongodb were extracted using this [snippet](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/recipe_src/recipe_eda.py) in a jupyter notebook to generate a csv vile.  Since most of the scraping was done using an AWS EC2 instance, this facilitated transport of the data back to a local machine for analysis.
 
 ### Snapshot of captured Data
-
-* Pooled recipes exploratory data analysis (EDA)
+* #### Data Summary
+* There were 9233 recipes where the title, ingredients, aggregated comments, #total likes.  The aggregated comments were unraveled and yielded 17733 commenters/users that provided 52907 comments.
+* Pooled recipe exploratory data analysis (EDA)
 -- The histogram for the count of 'likes' for each unique recipe (recipes with 1, 2, 3....n) appear to show a Poisson distribution.
  ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/latex_poisson_pmf.png)
 
-* #### Figure 1 Ratings/#Likes Distribution
+* #### Number of Likes per Recipe
 * A) All recipes and categories
  ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/distribution.png)
 * B) Ratings/#Likes Distribution for each category -- the 'vegetarian' category most likely include dessert, side dish, and vegetable main dish recipes.
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/distribution_ingredients.png)
 
+* #### Deriving Implicit Ratings
 * Sentiment analysis using nltk's Sentiment Intensity Analyzer returned a polarity score for each comment.  I used the compound score to derive implicit ratings using the following metric:
 
 | **Rating** | **Compound Score** |
@@ -31,7 +33,7 @@
 | **1** | **0 - 0.3** |
 | **0** | **<= 0** |
 
-* The ratings distribution is shown in the following table and plot.
+* This resulted in the implicit ratings distribution shown here.
 #### **Total count per rating category**
 | **Rating** | **Counts** |
 |:---:|:---:|
@@ -39,23 +41,21 @@
 | **2** | **8228** |
 | **1** | **2115** |
 | **0** | **13538** |
-*
+* Implicit ratings distribution plotted
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/implicit_dist.png)
+
 ---
 ## Modeling Part 1
 #### Clustering of recipe ingredients
-1. Non-negative Matrix Factorization and Latent Dirichlet Allocation of Recipe ingredients
-* Unsupervised learning using NMF and LDA was used to cluster the recipes based on their recipe ingredient similarity.  The best number of groups appear to be 6 with both NMF and LDA.  To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf) which were labeled based on either the LDA or NMF analysis.
-* 3-D plot of recipe groupings.
+1. Non-negative Matrix Factorization (NMF) and Latent Dirichlet Allocation (LDA) of Recipe ingredients
+* Unsupervised learning using NMF and LDA was used to analyze the text of recipe ingredients and to cluster similar recipes.  Different number of clustering groups were assessed.  Subjectively, I determined that the number of groups appear to be 6 with both NMF and LDA.  Considering the recipe data was scraped using four search terms, it is easy to imagine that the vegetarian search items may diverge into dessert and savory dishes.
+* To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf) which were labeled based on either the LDA or NMF analysis.
+* ##### 3-D plots of recipe groupings.
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png)
 
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_ldalabels_tsne.png)
 
-2.
-
-* #### Figure 2
-
 
 ## Modeling Part 2
-#### Clustering of Recipes using non-negative matrix factorization (NMF) and t-distributed stochastic neighbor embeding (t-SNE)
-1. Non-negative matrix factorization used to extract the top topics/word groups in the recipe text (ingredients) as well as the title.
+#### Collaborative Filtering
+1. MLLib Alternating Least Squares
