@@ -45,9 +45,13 @@
 ## Modeling Part 1
 #### Clustering of recipe ingredients
 1. Non-negative Matrix Factorization and Latent Dirichlet Allocation of Recipe ingredients
-* Unsupervised learning using NMF and LDA was used to cluster the recipes based on their recipe ingredient similarity.  The best number of groups appear to be 6 with both NMF and LDA.  To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf) which were labeled
+* Unsupervised learning using NMF and LDA was used to cluster the recipes based on their recipe ingredient similarity.  The best number of groups appear to be 6 with both NMF and LDA.  To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf) which were labeled based on either the LDA or NMF analysis.
+* 3-D plot of recipe groupings.
+![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png)
 
-2. Model Evaluation -- cross-validation metrics of popularity classifier.
+![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_ldalabels_tsne.png)
+
+2.
 
 * #### Figure 2
 
