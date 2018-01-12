@@ -29,18 +29,18 @@
 | **Rating** | **Compound Score** |
 |:---:|:---:|
 | **3** | **> 0.6** |
-| **2** | **0.3 - 0.6** |
-| **1** | **0 - 0.3** |
-| **0** | **<= 0** |
+| **2** | **0 to 0.6** |
+| **1** | **< 0** |
+| **0** | **no comments** |
 
 * This resulted in the implicit ratings distribution shown here.
 #### **Total count per rating category**
 | **Rating** | **Counts** |
 |:---:|:---:|
-| **3** | **29026** |
-| **2** | **8228** |
-| **1** | **2115** |
-| **0** | **13538** |
+| **3** | **26108** |
+| **2** | **10123** |
+| **1** | **3665** |
+| **0** | **16047** |
 * Implicit ratings distribution plotted
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/implicit_dist.png)
 
@@ -48,8 +48,8 @@
 ## Modeling Part 1
 #### Clustering of recipe ingredients
 1. Non-negative Matrix Factorization (NMF) and Latent Dirichlet Allocation (LDA) of Recipe ingredients
-* Unsupervised learning using NMF and LDA was used to analyze the text of recipe ingredients and to cluster similar recipes.  Different number of clustering groups were assessed.  Subjectively, I determined that the number of groups appear to be 6 with both NMF and LDA.  Considering the recipe data was scraped using four search terms, it is easy to imagine that the vegetarian search items may diverge into dessert and savory dishes.
-* To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf) which were labeled based on either the LDA or NMF analysis.
+* Unsupervised learning using NMF and LDA was used to analyze the text of recipe ingredients and to cluster similar recipes.  Different number of clustering groups (n_components) were assessed for both model and plotted.  Subjectively, I determined that the ideal number of groups that show the best separation appear to be 6 with NMF and 4 with LDA.  Considering the recipe data was scraped using four search terms, this is not unsurprising.  The meat recipes appear to overlap quite a bit.  The other notable distinct grouping appears to be with recipes for something that require ingredients for a baked product.
+* To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf).  The points were labeled based according to the clustering revealed by the LDA or NMF analysis.
 * ##### 3-D plots of recipe groupings.
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png)
 
