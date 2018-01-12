@@ -98,12 +98,48 @@ def plotting(x, y, z, labels, cluster_type):
     """
     fig = plt.figure(figsize=(15, 15))
     ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(x, y, z, zdir='z', c=labels, s=20, cmap='Dark2', alpha=0.4)
-    title = 'TSNE of Recipe Ingredients - {} labels(6)'.format(cluster_type)
-    ax.set_title(title, fontsize=14, fontweight='bold')
-    ax.grid(False)
+    colors = {0:'tab:blue', 1:'tab:orange', 2:'tab:purple', 3:'tab:brown', 4:'tab:green', 5:'tab:olive'}
+    labels = {0:'light chicken dish', 1:'pastry/baked', 2:'chicken/pork asian style', 3:'sauce/gravy', 4:'beef/pork dish', 5:'cheese dish/breakfast'}
+    for k, b in colors.items():
+        x, y, z = x6[np.where(labels4 == k)], y6[np.where(labels4 == k)], z6[np.where(labels4 == k)]
+        ax.scatter(x, y, z, zdir='z', c=colors[k], label=labels[k], s=20, alpha=0.3)
+        # ax.set_xticks([])
+        # ax.set_yticks([])
+        # ax.set_zticks([])
+    ax.legend(fontsize=16)
     plt.show()
     # plt.savefig('data/title_tsne.png')
+
+def plotting_3D(x, y, z, labels, cluster_type):
+    # We are going to do 20 plots, for 20 different angles
+for angle in range(70,210,2):
+    """
+    Input - data set(x, y, z coords) with labels
+    Output - series of files that contain 3d plots at different angles
+    -- gif file can be created from 3dplots using imagemagick
+    ~ convert -delay 50 3d_TSNE*.png animated_nmf.gif
+    """
+    # Make the plot
+    fig = plt.figure(figsize=(15, 15))
+    ax = fig.gca(projection='3d')
+    colors = {0:'tab:blue', 1:'tab:orange', 2:'tab:purple', 3:'tab:brown', 4:'tab:green', 5:'tab:olive'}
+    labels = {0:'light chicken dish', 1:'pastry/baked', 2:'chicken/pork asian style', 3:'sauce/gravy', 4:'beef/pork dish', 5:'cheese dish/breakfast'}
+    for k, b in colors.items():
+        x, y, z = x6[np.where(labels4 == k)], y6[np.where(labels4 == k)], z6[np.where(labels4 == k)]
+        ax.scatter(x, y, z, zdir='z', c=colors[k], label=labels[k], s=20, alpha=0.3)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_zticks([])
+    ax.legend(fontsize=16)
+    # Set the angle of the camera
+    ax.view_init(30,angle)
+
+    # Save it will save individual stacks
+    filename='data/3d_stack/3d_TSNE_step'+str(angle)+'.png'
+    plt.savefig(filename, dpi=96)
+    plt.gca()
+    plt.clf()
+    plt.close()
 
 if __name__ == '__main__':
     df = pd.read_csv('data/food52_scraped_data.csv')
