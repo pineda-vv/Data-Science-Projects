@@ -24,7 +24,7 @@
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/distribution_ingredients.png)
 
 * #### Deriving Implicit Ratings
-* Sentiment analysis using nltk's Sentiment Intensity Analyzer returned a polarity score for each comment.  I used the compound score to derive implicit ratings using the following metric:
+* The food52.com recipe site did not Sentiment analysis using nltk's Sentiment Intensity Analyzer returned a polarity score for each comment.  I used the compound score to derive implicit ratings using the following metric:
 
 | **Rating** | **Compound Score** |
 |:---:|:---:|
@@ -51,9 +51,9 @@
 * Unsupervised learning using NMF and LDA was used to analyze the text of recipe ingredients and to cluster similar recipes.  Different number of clustering groups (n_components) were assessed for both model and plotted.  Subjectively, I determined that the ideal number of groups that show the best separation appear to be 6 with NMF and 4 with LDA.  Considering the recipe data was scraped using four search terms, this is not unsurprising.  The meat recipes appear to overlap quite a bit.  The other notable distinct grouping appears to be with recipes for something that require ingredients for a baked product.
 * To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf).  The points were labeled based according to the clustering revealed by the LDA or NMF analysis.
 * ##### 3-D plots of recipe groupings.
-![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png)
-
-![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/3d_stack/animated_nmf.gif)
+NMF Analysis Topics TSNE Plot | NMF Analysis Topics TSNE Plot
+:-------------------------:|:-------------------------:
+![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png) | ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/3d_stack/animated_nmf.gif)
 
 
 ## Modeling Part 2
