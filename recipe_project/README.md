@@ -53,7 +53,7 @@
 * ##### 3-D plots of recipe groupings.
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png)
 
-![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_ldalabels_tsne.png)
+![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/3d_stack/animated_nmf.gif)
 
 
 ## Modeling Part 2
