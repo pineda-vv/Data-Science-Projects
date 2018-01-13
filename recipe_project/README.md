@@ -50,16 +50,15 @@
 1. Non-negative Matrix Factorization (NMF) and Latent Dirichlet Allocation (LDA) of Recipe ingredients
 * Unsupervised learning using NMF and LDA was used to analyze the text of recipe ingredients and to cluster similar recipes.  Different number of clustering groups (n_components) were assessed for both model and plotted.  Subjectively, I determined that the ideal number of groups that show the best separation appear to be 6 with NMF and 4 with LDA.  Considering the recipe data was scraped using four search terms, this is not unsurprising.  The meat recipes appear to overlap quite a bit.  The other notable distinct grouping appears to be with recipes for something that require ingredients for a baked product.
 * To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf).  The points were labeled based according to the clustering revealed by the LDA or NMF analysis.
-* ####NMF Analysis .
-TSNE Plot - Top Topics| TSNE Plot Animated
-:-------------------------:|:-------------------------:
-![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png) | ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/3d_stack/animated_nmf.gif)
+---
+* ####NMF Analysis
+[TSNE Plot - Top Topics](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png)
+![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/3d_stack/animated_nmf.gif)
 
 ---
 * ####Latent Dirichlet Allocation
-TSNE Plot - LDA Topics| TSNE Plot Animated
-:-------------------------:|:-------------------------:
-![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_ldalabels_tsne.png) | ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/lda_stack/animated_lda.gif)
+[TSNE Plot - LDA Topics](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_ldalabels_tsne.png)
+![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/lda_stack/animated_lda.gif)
 ---
 ## Modeling Part 2
 #### Collaborative Filtering
