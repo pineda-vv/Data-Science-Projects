@@ -49,17 +49,16 @@
 #### Unsupervised Clustering of recipe ingredients
 1. Non-negative Matrix Factorization (NMF) and Latent Dirichlet Allocation (LDA) of Recipe ingredients
 * Unsupervised learning using NMF and LDA was used to analyze the text of recipe ingredients and to cluster similar recipes.  Different number of clustering groups (n_components) were assessed for both model and plotted.  Subjectively, I determined that the ideal number of groups that show the best separation appear to be 6 with NMF and 4 with LDA.  Considering the recipe data was scraped using four search terms, this is not unsurprising.  The meat recipes appear to overlap quite a bit.  The other notable distinct grouping appears to be with recipes for something that require ingredients for a baked product.
-* To visualize the clusters, truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf).  The points were labeled based according to the clustering revealed by the LDA or NMF analysis.
+2. Visualization -  truncated SVD(singular value decomposition) combined with t-distributed stochastic neighbor embedding(TSNE) was used for dimensionality reduction of the recipe text matrices (TF, TFidf).  x, y, and z coordinates (n_components=3) were extracted from the TSNE analysis and each coordinate set was given a label based on either the LDA or NMF analysis and plotted in a 3D scatter plot.  The plots were labeled with summary terms of the top topics from each clustering analysis
 ---
-* #### NMF Analysis
-[TSNE Plot - Top Topics](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png)
+#### NMF Analysis
+[TSNE Plot - NMF Top Topics](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_nmfclustering_tsne.png)
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/3d_stack/animated_nmf.gif)
 
----
-* #### Latent Dirichlet Allocation
-[TSNE Plot - LDA Topics](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_ldalabels_tsne.png)
+#### Latent Dirichlet Allocation
+[TSNE Plot - LDA Top Topics](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/recipe_ldalabels_tsne.png)
 ![alt text](https://github.com/pineda-vv/Data-Science-Projects/blob/master/recipe_project/data/lda_stack/animated_lda.gif)
 ---
 ## Modeling Part 2
 #### Collaborative Filtering
-1. MLLib Alternating Least Squares
+1. Spark MLLib Alternating Least Squares - The recommendation system was built using Spark's ALS model.  The method of collaborative filtering aims to predict the rating of an item by a user based on the behavior of other users that "like" or highly rate the same or similar items. In short, the model takes into account the past actions (likes/ratings/purchases/web page views) of a particular user we'll call userA. The behavior of other users who have rated or liked the same or similar items. Recommendations are based on this second set of "similar" users' inclination for items or products that UserA has not seen or rated.  
