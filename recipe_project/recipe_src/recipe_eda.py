@@ -13,7 +13,8 @@ def main():
     db = client.food52_addenda
     food52 = db['new_data']
     cursor = food52.find({})
-    f52 = [document for document in cursor] # creates list of dicts from mongodb items
+    """ creates list of dicts from mongodb items"""
+    f52 = [document for document in cursor]
     df = pd.DataFrame.from_records(f52)  # create dataframe from list of dicts.
     # df['rating'] = df['rating'].apply(to_num)
     df2 = df.copy()

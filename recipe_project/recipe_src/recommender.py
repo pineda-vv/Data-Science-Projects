@@ -30,9 +30,8 @@ class RecipeRecommender():
             ratingCol='rating',
             nonnegative=True,
             regParam=reg,
-#             coldStartStrategy="drop"
-            )
-
+            coldStartStrategy="drop"  # works only with Spark 2.2.0
+           )
 
     def fit(self, ratings):
         """
@@ -56,7 +55,6 @@ class RecipeRecommender():
         self.recommender_ = self.model.fit(ratings_df)
         return self
 
-
     def transform(self, requests):
         """
         Predicts the ratings for a given set of user_id/recipe_id pairs.
@@ -76,7 +74,6 @@ class RecipeRecommender():
         self.predictions = self.recommender_.transform(requests_df)
         self.logger.debug("finishing predict")
         return self.predictions.toPandas()
-
 
     def evaluate(self, requests, pred_col='prediction'):
         requests_df = self.spark.createDataFrame(requests)

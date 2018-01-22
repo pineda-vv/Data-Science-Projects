@@ -70,7 +70,7 @@ def recipe_details(pickled_dict):
     recipe_details(link_list)
     pages = 0
     for link in link_list:
-        num = np.random.randint(3) # built in pause
+        num = np.random.randint(3)  # built in pause
         time.sleep(num)
         options = webdriver.ChromeOptions()
         options.add_argument('window-size=800x841')
@@ -95,7 +95,7 @@ def recipe_details(pickled_dict):
         print(pages)
         driver.quit()
         if pages / 50 == pages // 50:
-            time.sleep(30) # pauses for 30 seconds after 50 scrapes
+            time.sleep(30)  # pauses for 30 seconds after 50 scrapes
         else:
             continue
 

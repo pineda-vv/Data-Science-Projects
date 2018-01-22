@@ -23,6 +23,10 @@ the food52 web site using selenium.  Captured data is stored in a mongodb and
 queried subsequently - see recipe_eda.py for methods.
 """
 
+client = MongoClient('mongodb://localhost:27017/')
+db = client.food52
+food52 = db.food52
+
 
 def main(filename):
     with open(filename, 'rb') as f:
@@ -79,9 +83,6 @@ def recipe_details(link_list):
 
 
 def mongo_dump(title, rating, recipe, link):
-    client = MongoClient('mongodb://localhost:27017/')
-    db = client.food52
-    food52 = db.food52
     food52.insert_one({
         'title': title,
         'rating': rating,

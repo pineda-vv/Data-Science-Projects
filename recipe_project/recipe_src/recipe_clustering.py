@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-plt.style.use('ggplot')
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.decomposition import NMF, LatentDirichletAllocation, TruncatedSVD
 from sklearn.feature_extraction import text
@@ -9,6 +8,7 @@ from sklearn.manifold import TSNE
 from mpl_toolkits.mplot3d import Axes3D
 from time import time
 import pickle
+plt.style.use('ggplot')
 
 
 def topic_extraction(df, col_name):
@@ -37,28 +37,29 @@ def topic_extraction(df, col_name):
                                     stop_words=my_stop_words)
     tf = tf_vectorizer.fit_transform(df[col_name])
 
-    nmf = NMF(n_components=6, random_state=1,
-            alpha=.1, l1_ratio=.5)
+    nmf = NMF(n_components=6, random_state=1, alpha=.1, l1_ratio=.5)
     tfidf_feature_names = tfidf_vectorizer.get_feature_names()
     nmf_w = nmf.fit_transform(tfidf)
     nmf_h = nmf.components_
     labels = nmf_w.argmax(axis=1)
-    df['labels2'] = labels # this was the right code to get labels/clusters
+    df['labels2'] = labels  # his was the right code to get labels/clusters
     print("\nTopics in NMF model:")
     print_top_words('nmf', nmf, tfidf_feature_names)
     """uncomment to LDA topics"""
-    lda = LatentDirichletAllocation(n_components=6, max_iter=5,
-                                learning_method='online',
-                                learning_offset=50.,
-                                random_state=0,
-                                n_jobs=-1)
+    lda = LatentDirichletAllocation(
+             n_components=6, max_iter=5,
+             learning_method='online',
+             learning_offset=50.,
+             random_state=0,
+             n_jobs=-1
+            )
     mod = lda.fit(tf)
     comp = mod.fit_transform(tf)
     lda_labels = comp.argmax(axis=1)
     df['lda_topics2'] = lda_labels
     print("\nTopics in LDA model:")
     tf_feature_names = tf_vectorizer.get_feature_names()
-    print_top_words( 'lda', lda, tf_feature_names)
+    print_top_words('lda', lda, tf_feature_names)
     return df, labels, lda_labels, tfidf, tf
 
 
@@ -68,9 +69,9 @@ def print_top_words(model_name, model, feature_names, n_top_words=20):
     for topic_idx, topic in enumerate(model.components_):
         print("Topic #{}:".format(topic_idx))
         print(" ".join([feature_names[i]
-                        for i in topic.argsort()[:-n_top_words - 1:-1]]))
-        topic_dict[topic_idx] = " ".join([feature_names[i]
-                        for i in topic.argsort()[:-n_top_words - 1:-1]])
+              for i in topic.argsort()[:-n_top_words - 1:-1]]))
+        topic_dict[topic_idx] = " ".join(
+             [feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]])
     # with open(filepath, 'wb') as f:
     #     pickle.dump(topic_dict, f, pickle.HIGHEST_PROTOCOL)
     print('End')
@@ -98,11 +99,18 @@ def plotting(x, y, z, labels, cluster_type):
     """
     fig = plt.figure(figsize=(15, 15))
     ax = fig.add_subplot(111, projection='3d')
-    colors = {0:'tab:blue', 1:'tab:orange', 2:'tab:purple', 3:'tab:brown', 4:'tab:green', 5:'tab:olive'}
-    labels = {0:'light chicken dish', 1:'pastry/baked', 2:'chicken/pork asian style', 3:'sauce/gravy', 4:'beef/pork dish', 5:'cheese dish/breakfast'}
+    colors = {
+        0: 'tab:blue', 1: 'tab:orange', 2: 'tab:purple',
+        3: 'tab:brown', 4: 'tab:green', 5: 'tab:olive'}
+    labels = {
+        0: 'light chicken dish', 1: 'pastry/baked',
+        2: 'chicken/pork asian style', 3: 'sauce/gravy', 4: 'beef/pork dish',
+        5: 'cheese dish/breakfast'}
     for k, b in colors.items():
-        x, y, z = x6[np.where(labels4 == k)], y6[np.where(labels4 == k)], z6[np.where(labels4 == k)]
-        ax.scatter(x, y, z, zdir='z', c=colors[k], label=labels[k], s=20, alpha=0.3)
+        x, y, z = x6[np.where(labels4 == k)], y6[np.where(labels4 == k)],\
+                  z6[np.where(labels4 == k)]
+        ax.scatter(
+            x, y, z, zdir='z', c=colors[k], label=labels[k], s=20, alpha=0.3)
         # ax.set_xticks([])
         # ax.set_yticks([])
         # ax.set_zticks([])
@@ -110,36 +118,42 @@ def plotting(x, y, z, labels, cluster_type):
     plt.show()
     # plt.savefig('data/title_tsne.png')
 
+
 def plotting_3D(x, y, z, labels, cluster_type):
     # We are going to do 20 plots, for 20 different angles
-for angle in range(70,210,2):
-    """
-    Input - data set(x, y, z coords) with labels
-    Output - series of files that contain 3d plots at different angles
-    -- gif file can be created from 3dplots using imagemagick
-    ~ convert -delay 50 3d_TSNE*.png animated_nmf.gif
-    """
-    # Make the plot
-    fig = plt.figure(figsize=(15, 15))
-    ax = fig.gca(projection='3d')
-    colors = {0:'tab:blue', 1:'tab:orange', 2:'tab:purple', 3:'tab:brown', 4:'tab:green', 5:'tab:olive'}
-    labels = {0:'light chicken dish', 1:'pastry/baked', 2:'chicken/pork asian style', 3:'sauce/gravy', 4:'beef/pork dish', 5:'cheese dish/breakfast'}
-    for k, b in colors.items():
-        x, y, z = x6[np.where(labels4 == k)], y6[np.where(labels4 == k)], z6[np.where(labels4 == k)]
-        ax.scatter(x, y, z, zdir='z', c=colors[k], label=labels[k], s=20, alpha=0.3)
-        ax.set_xticks([])
-        ax.set_yticks([])
-        ax.set_zticks([])
-    ax.legend(fontsize=16)
-    # Set the angle of the camera
-    ax.view_init(30,angle)
+    for angle in range(70, 210, 2):
+        """
+        Input - data set(x, y, z coords) with labels
+        Output - series of files that contain 3d plots at different angles
+        -- gif file can be created from 3dplots using imagemagick
+        ~ convert -delay 50 3d_TSNE*.png animated_nmf.gif
+        """
+        # Make the plot
+        fig = plt.figure(figsize=(15, 15))
+        ax = fig.gca(projection='3d')
+        colors = {0: 'tab:blue', 1: 'tab:orange', 2: 'tab:purple',
+                  3: 'tab:brown', 4: 'tab:green', 5: 'tab:olive'}
+        labels = {0: 'light chicken dish', 1: 'pastry/baked',
+                  2: 'chicken/pork asian style', 3: 'sauce/gravy',
+                  4: 'beef/pork dish', 5: 'cheese dish/breakfast'}
+        for k, b in colors.items():
+            x, y, z = x6[np.where(labels4 == k)], y6[np.where(labels4 == k)],\
+                      z6[np.where(labels4 == k)]
+            ax.scatter(x, y, z, zdir='z', c=colors[k], label=labels[k],
+                       s=20, alpha=0.3)
+            ax.set_xticks([])
+            ax.set_yticks([])
+            ax.set_zticks([])
+        ax.legend(fontsize=16)
+        # Set the angle of the camera
+        ax.view_init(30, angle)
+        # Save it will save individual stacks
+        filename = 'data/3d_stack/3d_TSNE_step' + str(angle) + '.png'
+        plt.savefig(filename, dpi=96)
+        plt.gca()
+        plt.clf()
+        plt.close()
 
-    # Save it will save individual stacks
-    filename='data/3d_stack/3d_TSNE_step'+str(angle)+'.png'
-    plt.savefig(filename, dpi=96)
-    plt.gca()
-    plt.clf()
-    plt.close()
 
 if __name__ == '__main__':
     df = pd.read_csv('data/food52_scraped_data.csv')
